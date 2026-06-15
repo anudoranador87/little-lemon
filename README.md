@@ -7,15 +7,11 @@
 
 ---
 
-## 📌 Nombre del repositorio sugerido
-```
-little-lemon
-```
 
 ---
 
 ## 🌐 Live Demo
-🔗 [Ver app desplegada](#) *(actualizar cuando esté desplegada)*
+🔗 [Ver app desplegada](#) *(aun no esta en fase)*
 
 ---
 
