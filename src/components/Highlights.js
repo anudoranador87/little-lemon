@@ -1,4 +1,7 @@
 import React from 'react';
+import greekSalad from '../assets/greek-salad.jpg';
+import bruchetta from '../assets/bruchetta.jpg';
+import lemonDessert from '../assets/lemon-dessert.jpg';
 
 const Highlights = () => {
   return (
@@ -9,7 +12,7 @@ const Highlights = () => {
       </div>
       <div className="specials-grid">
         <article className="special-card">
-          <img src="/logo512.png" alt="Greek salad" />
+          <img src={greekSalad} alt="Greek salad" />
           <div className="special-content">
             <div className="special-header">
               <h3>Greek salad</h3>
@@ -20,7 +23,7 @@ const Highlights = () => {
           </div>
         </article>
         <article className="special-card">
-          <img src="/logo512.png" alt="Bruchetta" />
+          <img src={bruchetta} alt="Bruchetta" />
           <div className="special-content">
             <div className="special-header">
               <h3>Bruchetta</h3>
@@ -31,7 +34,7 @@ const Highlights = () => {
           </div>
         </article>
         <article className="special-card">
-          <img src="/logo512.png" alt="Lemon Dessert" />
+          <img src={lemonDessert} alt="Lemon Dessert" />
           <div className="special-content">
             <div className="special-header">
               <h3>Lemon Dessert</h3>
