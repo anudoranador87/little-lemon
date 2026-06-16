@@ -50,16 +50,16 @@ npm start
 ## ✅ PROGRESO DEL PROYECTO
 
 ### 🔧 FASE 1 — Configuración del entorno
-- [ ] Node.js y npm instalados
-- [ ] VS Code instalado
-- [ ] Git instalado y configurado
-- [ ] Cuenta de GitHub creada
-- [ ] Extensión ES7+ React/Redux instalada en VS Code
-- [ ] Extensión Auto Rename Tag instalada en VS Code
-- [ ] Extensión Trailing Spaces instalada en VS Code
-- [ ] App React creada con `npm init react-app little-lemon`
-- [ ] App.js limpiado (contenido del div eliminado, texto "Homepage" añadido)
-- [ ] Archivo `logo.svg` eliminado y su import removido de App.js
+- [x] Node.js y npm instalados
+- [x] VS Code instalado
+- [x] Git instalado y configurado
+- [x] Cuenta de GitHub creada
+- [x] Extensión ES7+ React/Redux instalada en VS Code
+- [x] Extensión Auto Rename Tag instalada en VS Code
+- [x] Extensión Trailing Spaces instalada en VS Code
+- [x] App React creada con `npm init react-app little-lemon`
+- [x] App.js limpiado (contenido del div eliminado, texto "Homepage" añadido)
+- [x] Archivo `logo.svg` eliminado y su import removido de App.js
 - [ ] Repositorio creado en GitHub
 - [ ] Primer commit y push a GitHub
 
