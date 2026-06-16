@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Reservations from './pages/Reservations';
+import ConfirmedBooking from './pages/ConfirmedBooking';
 import About from './pages/About';
 import Menu from './pages/Menu';
 import OrderOnline from './pages/OrderOnline';

@@ -19,7 +19,7 @@ const Highlights = () => {
               <p className="special-price">$12.99</p>
             </div>
             <p>The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese, garnished with crunchy garlic and rosemary croutons.</p>
-            <p className="order-delivery">Order a delivery 🛵</p>
+            <button className="order-delivery" aria-label="Order Greek salad for delivery">Order a delivery 🛵</button>
           </div>
         </article>
         <article className="special-card">
@@ -30,7 +30,7 @@ const Highlights = () => {
               <p className="special-price">$5.99</p>
             </div>
             <p>Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.</p>
-            <p className="order-delivery">Order a delivery 🛵</p>
+            <button className="order-delivery" aria-label="Order Bruchetta for delivery">Order a delivery 🛵</button>
           </div>
         </article>
         <article className="special-card">
@@ -41,7 +41,7 @@ const Highlights = () => {
               <p className="special-price">$5.00</p>
             </div>
             <p>This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined.</p>
-            <p className="order-delivery">Order a delivery 🛵</p>
+            <button className="order-delivery" aria-label="Order Lemon Dessert for delivery">Order a delivery 🛵</button>
           </div>
         </article>
       </div>

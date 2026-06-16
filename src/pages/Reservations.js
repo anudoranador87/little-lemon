@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookingForm from '../components/BookingForm';
 
 // Initial state for available times
@@ -19,10 +20,14 @@ export const updateTimes = (state, action) => {
 
 const Reservations = () => {
   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
+  const navigate = useNavigate();
 
   const submitForm = (formData) => {
     console.log("Form Submitted:", formData);
-    alert("Reservation successful!");
+    // Simulate API call
+    setTimeout(() => {
+        navigate('/confirmed');
+    }, 1000);
   };
 
   return (

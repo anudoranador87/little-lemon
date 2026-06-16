@@ -5,6 +5,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   const [resTime, setResTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('Birthday');
+  const [loading, setLoading] = useState(false);
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -14,6 +15,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     submitForm({ date, resTime, guests, occasion });
   };
 
@@ -25,6 +27,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         id="res-date" 
         value={date} 
         onChange={handleDateChange} 
+        min={new Date().toISOString().split('T')[0]}
         required 
       />
 
@@ -63,7 +66,13 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         <option value="Anniversary">Anniversary</option>
       </select>
 
-      <input type="submit" className="hero-btn submit-btn" value="Make Your reservation" aria-label="On Click" />
+      <input 
+        type="submit" 
+        className="hero-btn submit-btn" 
+        value={loading ? "Saving..." : "Make Your reservation"} 
+        aria-label={loading ? "Saving reservation" : "Make your reservation"}
+        disabled={loading}
+      />
     </form>
   );
 };
