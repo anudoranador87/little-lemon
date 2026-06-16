@@ -181,12 +181,75 @@
   color: var(--primary-yellow);
 }
 
+/* Testimonials Styles */
+.testimonials {
+  padding: 60px 10%;
+  background-color: var(--primary-green);
+  text-align: center;
+}
+
+.testimonials h2 {
+  color: white;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.testimonial-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rating {
+  font-size: 14px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.review-text {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--highlight-black);
+}
+
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .hero, .specials-grid, .footer {
+  .hero, .specials-grid, .footer, .testimonials-grid {
     grid-template-columns: 1fr;
   }
   
   .hero h1 { font-size: 48px; }
   .navbar { padding: 20px 5%; }
-  .nav-links { display: none; } /* Could add a hamburger menu later */
+  .nav-links { display: none; }
 }
