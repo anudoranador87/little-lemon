@@ -6,6 +6,16 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('Birthday');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!date) newErrors.date = "Date is required";
+    if (!resTime) newErrors.resTime = "Time is required";
+    if (guests < 1 || guests > 10) newErrors.guests = "Guests must be between 1 and 10";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -15,12 +25,14 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    submitForm({ date, resTime, guests, occasion });
+    if (validate()) {
+        setLoading(true);
+        submitForm({ date, resTime, guests, occasion });
+    }
   };
 
   return (
-    <form className="booking-form" style={{ display: 'grid', gap: '20px' }} onSubmit={handleSubmit}>
+    <form className="booking-form" style={{ display: 'grid', gap: '15px' }} onSubmit={handleSubmit} noValidate>
       <label htmlFor="res-date">Choose date</label>
       <input 
         type="date" 
@@ -30,6 +42,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         min={new Date().toISOString().split('T')[0]}
         required 
       />
+      {errors.date && <p style={{color: 'red', margin: 0}}>{errors.date}</p>}
 
       <label htmlFor="res-time">Choose time</label>
       <select 
@@ -43,6 +56,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           <option key={time} value={time}>{time}</option>
         ))}
       </select>
+      {errors.resTime && <p style={{color: 'red', margin: 0}}>{errors.resTime}</p>}
 
       <label htmlFor="guests">Number of guests</label>
       <input 
@@ -55,6 +69,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         onChange={(e) => setGuests(e.target.value)} 
         required 
       />
+      {errors.guests && <p style={{color: 'red', margin: 0}}>{errors.guests}</p>}
 
       <label htmlFor="occasion">Occasion</label>
       <select 
