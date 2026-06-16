@@ -2,9 +2,12 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="footer">
       <div>
-        <h3>Doormat Navigation</h3>
+        <img src="/logo192.png" alt="Little Lemon" style={{ height: '100px', filter: 'brightness(0) invert(1)' }} />
+      </div>
+      <div>
+        <h3>Navigation</h3>
         <ul>
           <li>Home</li>
           <li>About</li>
@@ -16,9 +19,9 @@ const Footer = () => {
       </div>
       <div>
         <h3>Contact</h3>
-        <p>Address</p>
-        <p>Phone number</p>
-        <p>Email</p>
+        <p>123 Lemon Street, Chicago</p>
+        <p>(123) 456-7890</p>
+        <p>contact@littlelemon.com</p>
       </div>
       <div>
         <h3>Social Media</h3>

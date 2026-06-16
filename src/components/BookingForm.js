@@ -18,7 +18,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   };
 
   return (
-    <form style={{ display: 'grid', maxWidth: '200px', gap: '20px' }} onSubmit={handleSubmit}>
+    <form className="booking-form" style={{ display: 'grid', gap: '20px' }} onSubmit={handleSubmit}>
       <label htmlFor="res-date">Choose date</label>
       <input 
         type="date" 
@@ -63,7 +63,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         <option value="Anniversary">Anniversary</option>
       </select>
 
-      <input type="submit" value="Make Your reservation" aria-label="On Click" />
+      <input type="submit" className="hero-btn submit-btn" value="Make Your reservation" aria-label="On Click" />
     </form>
   );
 };
