@@ -300,6 +300,64 @@ ul {
   cursor: pointer;
 }
 
+/* Cart Styles */
+.cart-container {
+  margin: 60px auto;
+  padding: 40px;
+  max-width: 600px;
+  background-color: var(--highlight-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.cart-container h2 {
+  font-family: 'Markazi Text', serif;
+  font-size: 32px;
+  color: var(--primary-green);
+  margin-bottom: 20px;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-summary {
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.cart-total {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--highlight-black);
+}
+
+.delivery-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.delivery-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
 /* Footer Styles */
 .footer {
   background-color: #333333;
