@@ -1,6 +1,6 @@
 import React from 'react';
-import marioAdrianA from '../assets/greek-salad.jpg';
-import marioAdrianB from '../assets/bruchetta.jpg';
+import marioAndAdrian from '../assets/mario-and-adrian.jpg';
+import heroBanner from '../assets/hero-banner.jpg';
 
 const About = () => {
   return (
@@ -77,8 +77,8 @@ const About = () => {
         </div>
       </div>
       <div className="about-images">
-        <img src={marioAdrianA} alt="Mario and Adrian preparing food" className="img-stack-top" />
-        <img src={marioAdrianB} alt="Our authentic Mediterranean bruschetta" className="img-stack-bottom" />
+        <img src={marioAndAdrian} alt="Mario and Adrian, the founders" className="img-stack-top" />
+        <img src={heroBanner} alt="The Little Lemon restaurant atmosphere" className="img-stack-bottom" />
       </div>
     </section>
   );

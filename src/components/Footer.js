@@ -1,34 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.jpg';
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div>
-        <img src="/logo192.png" alt="Little Lemon" style={{ height: '100px', filter: 'brightness(0) invert(1)' }} />
+      <div className="footer-logo">
+        <img src={logo} alt="Little Lemon" />
+        <p>Your favorite Mediterranean spot in the heart of Chicago.</p>
       </div>
-      <div>
+      <div className="footer-column">
         <h3>Navigation</h3>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Menu</li>
-          <li>Reservations</li>
-          <li>Order Online</li>
-          <li>Login</li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/menu">Menu</Link></li>
+          <li><Link to="/reservations">Reservations</Link></li>
+          <li><Link to="/order">Order Online</Link></li>
+          <li><Link to="/login">Login</Link></li>
         </ul>
       </div>
-      <div>
+      <div className="footer-column">
         <h3>Contact</h3>
-        <p>123 Lemon Street, Chicago</p>
-        <p>(123) 456-7890</p>
-        <p>contact@littlelemon.com</p>
-      </div>
-      <div>
-        <h3>Social Media</h3>
         <ul>
-          <li>Facebook</li>
-          <li>Instagram</li>
-          <li>Twitter</li>
+          <li>123 Lemon Street, Chicago</li>
+          <li><a href="tel:+1234567890">(123) 456-7890</a></li>
+          <li><a href="mailto:contact@littlelemon.com">contact@littlelemon.com</a></li>
+        </ul>
+      </div>
+      <div className="footer-column">
+        <h3>Social Media</h3>
+        <ul className="social-links">
+          <li><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+          <li><a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</a></li>
         </ul>
       </div>
     </footer>
