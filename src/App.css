@@ -364,8 +364,22 @@ ul {
   color: #EDEFEE;
   padding: 60px 10%;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 40px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 5%;
+    text-align: center;
+  }
+  
+  .footer-column ul {
+    align-items: center;
+  }
 }
 
 .footer-logo img {
@@ -607,5 +621,45 @@ ul {
   
   .footer-column a:hover {
     padding-left: 0;
+  }
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  gap: 5px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--highlight-black);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fcf9f0;
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 15px;
+    display: none;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
   }
 }
