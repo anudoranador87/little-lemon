@@ -8,6 +8,9 @@ const Footer = () => {
       <div className="footer-logo">
         <img src={logo} alt="Little Lemon" />
         <p>Your favorite Mediterranean spot in the heart of Chicago.</p>
+        <p style={{ marginTop: '20px', fontSize: '12px', color: '#888' }}>
+          Created by Jose - Front End Developer
+        </p>
       </div>
       <div className="footer-column">
         <h3>Navigation</h3>
