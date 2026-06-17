@@ -37,8 +37,9 @@ const Reservations = () => {
 
   const submitForm = (formData) => {
     console.log("Form Submitted:", formData);
-    // Simulate API call
+    // Simulate API call and "sending email"
     setTimeout(() => {
+        alert(`Reservation confirmed! A confirmation email has been sent to ${formData.email}.`);
         navigate('/confirmed');
     }, 1000);
   };

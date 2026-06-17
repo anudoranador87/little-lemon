@@ -5,15 +5,16 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   const [resTime, setResTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('Birthday');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // A simple validation function. Just making sure the user actually
-  // filled in the required fields before letting them submit.
   const validate = () => {
     const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!date) newErrors.date = "Date is required";
     if (!resTime) newErrors.resTime = "Time is required";
+    if (!email || !emailRegex.test(email)) newErrors.email = "A valid email is required";
     if (guests < 1 || guests > 10) newErrors.guests = "Guests must be between 1 and 10";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -29,7 +30,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
     e.preventDefault();
     if (validate()) {
         setLoading(true);
-        submitForm({ date, resTime, guests, occasion });
+        submitForm({ date, resTime, guests, occasion, email });
     }
   };
 
@@ -60,6 +61,17 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
       </select>
       {errors.resTime && <p style={{color: 'red', margin: 0}}>{errors.resTime}</p>}
 
+      <label htmlFor="email">Email Address</label>
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="you@example.com"
+        value={email} 
+        onChange={(e) => setEmail(e.target.value)} 
+        required 
+      />
+      {errors.email && <p style={{color: 'red', margin: 0}}>{errors.email}</p>}
+
       <label htmlFor="guests">Number of guests</label>
       <input 
         type="number" 
@@ -86,8 +98,8 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
       <input 
         type="submit" 
         className="hero-btn submit-btn" 
-        value={loading ? "Saving..." : "Make Your reservation"} 
-        aria-label={loading ? "Saving reservation" : "Make your reservation"}
+        value={loading ? "Sending..." : "Make Your reservation"} 
+        aria-label={loading ? "Sending reservation" : "Make your reservation"}
         disabled={loading}
       />
     </form>
