@@ -8,6 +8,8 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
+  // A simple validation function. Just making sure the user actually
+  // filled in the required fields before letting them submit.
   const validate = () => {
     const newErrors = {};
     if (!date) newErrors.date = "Date is required";

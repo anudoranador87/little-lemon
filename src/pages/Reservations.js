@@ -20,7 +20,8 @@ export const initializeTimes = () => {
   return fetchAPI(new Date().toISOString().split('T')[0]);
 };
 
-// Reducer function to handle time updates
+// This is the reducer. Honestly, it took me a minute to understand it,
+// but it's like a central brain for managing the available times state.
 export const updateTimes = (state, action) => {
   switch (action.type) {
     case 'UPDATE_TIMES':

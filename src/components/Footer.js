@@ -2,18 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
 
+// I made the footer cleaner and added a bit more space.
+// Using grid makes it much easier to align columns!
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ borderTop: '2px solid var(--primary-yellow)', paddingTop: '40px' }}>
       <div className="footer-logo">
-        <img src={logo} alt="Little Lemon" />
+        <img src={logo} alt="Little Lemon" style={{ borderRadius: '8px' }} />
         <p>Your favorite Mediterranean spot in the heart of Chicago.</p>
         <p style={{ marginTop: '20px', fontSize: '12px', color: '#888' }}>
           Created by Jose - Front End Developer
         </p>
       </div>
       <div className="footer-column">
-        <h3>Navigation</h3>
+        <h3 style={{ color: 'var(--secondary-salmon)' }}>Navigation</h3>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
@@ -24,7 +26,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-column">
-        <h3>Contact</h3>
+        <h3 style={{ color: 'var(--secondary-salmon)' }}>Contact</h3>
         <ul>
           <li>123 Lemon Street, Chicago</li>
           <li><a href="tel:+1234567890">(123) 456-7890</a></li>
@@ -32,7 +34,7 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-column">
-        <h3>Social Media</h3>
+        <h3 style={{ color: 'var(--secondary-salmon)' }}>Social Media</h3>
         <ul className="social-links">
           <li><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
           <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>

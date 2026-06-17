@@ -1,39 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useCart } from '../hooks/useCart';
 import greekSalad from '../assets/greek-salad.jpg';
 import bruchetta from '../assets/bruchetta.jpg';
 import lemonDessert from '../assets/lemon-dessert.jpg';
+import falafel from '../assets/falafel.jpeg';
+import hummus from '../assets/hummus.jpeg';
+import baklava from '../assets/baklava.jpeg';
 
 const OrderOnline = () => {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const { cart, addToCart, clearCart, subtotal, iva, total } = useCart();
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState({ name: '', address: '', phone: '' });
   
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
   const menuItems = [
     { id: 1, name: 'Greek Salad', price: 12.99, image: greekSalad, description: 'Crispy lettuce, peppers, olives, Chicago style feta.' },
     { id: 2, name: 'Bruchetta', price: 5.99, image: bruchetta, description: 'Grilled bread, garlic, salt, olive oil.' },
-    { id: 3, name: 'Lemon Dessert', price: 5.00, image: lemonDessert, description: 'Authentic grandma recipe lemon dessert.' }
+    { id: 3, name: 'Lemon Dessert', price: 5.00, image: lemonDessert, description: 'Authentic grandma recipe lemon dessert.' },
+    { id: 4, name: 'Falafel', price: 8.50, image: falafel, description: 'Crispy chickpea fritters with tahini sauce.' },
+    { id: 5, name: 'Hummus', price: 6.50, image: hummus, description: 'Creamy chickpea dip with olive oil and pita.' },
+    { id: 6, name: 'Baklava', price: 4.50, image: baklava, description: 'Sweet pastry made of layers of filo and nuts.' }
   ];
-
-  const addToCart = (item) => {
-    setCart([...cart, item]);
-  };
-
-  const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
-  const iva = subtotal * 0.16;
-  const total = subtotal + iva;
 
   const handleCheckoutSubmit = (e) => {
     e.preventDefault();
     alert(`Order placed for ${deliveryInfo.name}! It will be delivered to: ${deliveryInfo.address}. Total: $${total.toFixed(2)}`);
-    setCart([]);
-    localStorage.removeItem('cart');
+    clearCart();
     setShowCheckoutForm(false);
     setDeliveryInfo({ name: '', address: '', phone: '' });
   };
@@ -81,7 +72,7 @@ const OrderOnline = () => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
                   <button className="hero-btn" onClick={() => setShowCheckoutForm(true)}>Proceed to Delivery</button>
-                  <button className="hero-btn" onClick={() => setCart([])} style={{ backgroundColor: '#EE9972' }}>Clear Cart</button>
+                  <button className="hero-btn" onClick={clearCart} style={{ backgroundColor: '#EE9972' }}>Clear Cart</button>
                 </div>
             </>
         ) : (

@@ -1,14 +1,19 @@
 import './App.css';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Reservations from './pages/Reservations';
-import ConfirmedBooking from './pages/ConfirmedBooking';
-import About from './pages/About';
-import Menu from './pages/Menu';
-import OrderOnline from './pages/OrderOnline';
-import Login from './pages/Login';
+import PageTransition from './components/PageTransition';
+
+// Using lazy loading here! It's supposed to help load pages faster
+// by only bringing them in when the user actually navigates to them.
+const Home = lazy(() => import('./pages/Home'));
+const Reservations = lazy(() => import('./pages/Reservations'));
+const ConfirmedBooking = lazy(() => import('./pages/ConfirmedBooking'));
+const About = lazy(() => import('./pages/About'));
+const Menu = lazy(() => import('./pages/Menu'));
+const OrderOnline = lazy(() => import('./pages/OrderOnline'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
   return (
@@ -16,15 +21,18 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/reservations" element={<Reservations />} />
-        <Route path="/confirmed" element={<ConfirmedBooking />} />
-        <Route path="/order" element={<OrderOnline />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      {/* Suspense is needed to show something while the lazy component loads */}
+      <Suspense fallback={<div style={{padding: '100px', textAlign: 'center'}}>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/menu" element={<PageTransition><Menu /></PageTransition>} />
+          <Route path="/reservations" element={<PageTransition><Reservations /></PageTransition>} />
+          <Route path="/confirmed" element={<PageTransition><ConfirmedBooking /></PageTransition>} />
+          <Route path="/order" element={<PageTransition><OrderOnline /></PageTransition>} />
+          <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        </Routes>
+      </Suspense>
       <Footer />
     </Router>
   );

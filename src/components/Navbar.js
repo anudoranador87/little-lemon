@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
 
+// The navbar is the first thing users see.
+// Keeping it sticky makes navigation super easy as they scroll!
 const Navbar = () => {
   return (
     <nav className="navbar">
@@ -15,6 +17,7 @@ const Navbar = () => {
           <li><Link to="/menu">Menu</Link></li>
           <li><Link to="/reservations">Reservations</Link></li>
           <li><Link to="/order">Order Online</Link></li>
+          {/* Using a specific class for the login button to make it stand out! */}
           <li><Link to="/login" className="login-nav">Login</Link></li>
         </ul>
       </div>
