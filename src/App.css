@@ -377,6 +377,10 @@ ul {
     text-align: center;
   }
   
+  .footer-logo {
+    align-items: center;
+  }
+  
   .footer-column ul {
     align-items: center;
   }
