@@ -39,7 +39,7 @@ npm start
 ```
 
 ## 🌐 Live Demo
-*(Pending deployment link)*
+🔗 [little-lemon-blond.vercel.app](https://little-lemon-blond.vercel.app)
 
 ---
 
