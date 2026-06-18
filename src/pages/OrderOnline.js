@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../hooks/useCart';
 import greekSalad from '../assets/greek-salad.jpg';
 import bruchetta from '../assets/bruchetta.jpg';
@@ -10,6 +11,7 @@ import baklava from '../assets/baklava.jpeg';
 const OrderOnline = () => {
   const { cart, addToCart, clearCart, subtotal, iva, total } = useCart();
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState({ name: '', address: '', phone: '' });
   
   const menuItems = [
@@ -30,10 +32,15 @@ const OrderOnline = () => {
   };
 
   return (
-    <main style={{ padding: '60px 10%' }}>
-      <header style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1>Order Online</h1>
-        <p>Select your favorite dishes and order for pickup or delivery.</p>
+    <main style={{ padding: '60px 10%', position: 'relative', overflowX: 'hidden' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+        <div>
+          <h1>Order Online</h1>
+          <p>Select your favorite dishes and order for pickup or delivery.</p>
+        </div>
+        <button className="cart-toggle-btn" onClick={() => setIsCartOpen(true)}>
+          🛒 Cart ({cart.length})
+        </button>
       </header>
       
       <section className="specials-grid">
@@ -58,34 +65,66 @@ const OrderOnline = () => {
         ))}
       </section>
 
-      <section className="cart-container">
-        <h2>Your Cart</h2>
-        {cart.length === 0 ? <p>Your cart is empty.</p> : !showCheckoutForm ? (
-            <>
-                <ul className="cart-items">
-                    {cart.map((item, index) => <li key={index} className="cart-item"><span>{item.name}</span> <span>${item.price.toFixed(2)}</span></li>)}
-                </ul>
-                <div className="cart-summary">
-                    <p>Subtotal: ${subtotal.toFixed(2)}</p>
-                    <p>IVA (16%): ${iva.toFixed(2)}</p>
-                    <p className="cart-total">Total: ${total.toFixed(2)}</p>
+      <AnimatePresence>
+        {isCartOpen && (
+          <>
+            <motion.div 
+              className="cart-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCartOpen(false)}
+            />
+            <motion.div 
+              className="side-cart"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            >
+              <div className="cart-header">
+                <h2>Your Cart</h2>
+                <button className="close-cart" onClick={() => setIsCartOpen(false)}>×</button>
+              </div>
+
+              {cart.length === 0 ? (
+                <p className="empty-cart">Your cart is empty.</p>
+              ) : !showCheckoutForm ? (
+                <div className="cart-content-wrapper">
+                  <ul className="cart-items">
+                    {cart.map((item, index) => (
+                      <li key={index} className="cart-item">
+                        <span>{item.name}</span> 
+                        <span>${item.price.toFixed(2)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="cart-bottom">
+                    <div className="cart-summary">
+                        <p>Subtotal: <span>${subtotal.toFixed(2)}</span></p>
+                        <p>IVA (16%): <span>${iva.toFixed(2)}</span></p>
+                        <p className="cart-total">Total: <span>${total.toFixed(2)}</span></p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                      <button className="hero-btn" style={{width: '100%'}} onClick={() => setShowCheckoutForm(true)}>Proceed to Delivery</button>
+                      <button className="hero-btn clear-btn" onClick={clearCart}>Clear Cart</button>
+                    </div>
+                  </div>
                 </div>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                  <button className="hero-btn" onClick={() => setShowCheckoutForm(true)}>Proceed to Delivery</button>
-                  <button className="hero-btn" onClick={clearCart} style={{ backgroundColor: '#EE9972' }}>Clear Cart</button>
-                </div>
-            </>
-        ) : (
-            <form onSubmit={handleCheckoutSubmit} className="delivery-form">
-                <h3>Delivery Information</h3>
-                <input type="text" placeholder="Full Name" required onChange={(e) => setDeliveryInfo({...deliveryInfo, name: e.target.value})} />
-                <input type="text" placeholder="Address" required onChange={(e) => setDeliveryInfo({...deliveryInfo, address: e.target.value})} />
-                <input type="tel" placeholder="Phone Number" required onChange={(e) => setDeliveryInfo({...deliveryInfo, phone: e.target.value})} />
-                <button type="submit" className="hero-btn">Confirm Order</button>
-                <button type="button" onClick={() => setShowCheckoutForm(false)} className="hero-btn" style={{backgroundColor: '#ccc'}}>Cancel</button>
-            </form>
+              ) : (
+                <form onSubmit={handleCheckoutSubmit} className="delivery-form side-delivery">
+                    <h3>Delivery Info</h3>
+                    <input type="text" placeholder="Full Name" required onChange={(e) => setDeliveryInfo({...deliveryInfo, name: e.target.value})} />
+                    <input type="text" placeholder="Address" required onChange={(e) => setDeliveryInfo({...deliveryInfo, address: e.target.value})} />
+                    <input type="tel" placeholder="Phone Number" required onChange={(e) => setDeliveryInfo({...deliveryInfo, phone: e.target.value})} />
+                    <button type="submit" className="hero-btn" style={{width: '100%'}}>Confirm Order</button>
+                    <button type="button" onClick={() => setShowCheckoutForm(false)} className="hero-btn cancel-btn">Back</button>
+                </form>
+              )}
+            </motion.div>
+          </>
         )}
-      </section>
+      </AnimatePresence>
     </main>
   );
 };

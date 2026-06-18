@@ -27,7 +27,7 @@ const Highlights = () => {
           <div className="special-content">
             <div className="special-header">
               <h3>Bruchetta</h3>
-              <p className="special-price">$5.99</p>
+           <p className="special-price">$5.99</p>
             </div>
             <p>Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.</p>
             <button className="order-delivery" aria-label="Order Bruchetta for delivery">Order a delivery 🛵</button>

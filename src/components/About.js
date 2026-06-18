@@ -14,7 +14,7 @@ const About = () => {
             The story of Little Lemon began with a shared dream between two brothers, Mario and Adrian, 
             who grew up in a vibrant Italian coastal town surrounded by the rich aromas of fresh basil, 
             olive oil, and simmering tomatoes. From a young age, they learned that food wasn't just 
-            sustenance—it was a way to bring family and community together.
+to            sustenance—it was a way to bring family and community together.
           </p>
           <p>
             In pursuit of their passion for hospitality and culinary arts, Mario and Adrian moved to 

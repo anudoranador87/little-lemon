@@ -5,20 +5,17 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
   const [resTime, setResTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState('Birthday');
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
 
-  const validate = () => {
-    const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!date) newErrors.date = "Date is required";
-    if (!resTime) newErrors.resTime = "Time is required";
-    if (!email || !emailRegex.test(email)) newErrors.email = "A valid email is required";
-    if (guests < 1 || guests > 10) newErrors.guests = "Guests must be between 1 and 10";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const [selectedTable, setSelectedTable] = useState(null);
+
+  const tables = [
+    { id: 'T1', type: 'window', capacity: 2 },
+    { id: 'T2', type: 'window', capacity: 4 },
+    { id: 'T3', type: 'center', capacity: 6 },
+    { id: 'T4', type: 'center', capacity: 4 },
+    { id: 'T5', type: 'patio', capacity: 2 },
+    { id: 'T6', type: 'patio', capacity: 8 },
+  ];
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -28,14 +25,15 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-        setLoading(true);
-        submitForm({ date, resTime, guests, occasion, email });
+    if (!selectedTable) {
+      alert("Please select a table from the map.");
+      return;
     }
+    submitForm({ date, resTime, guests, occasion, table: selectedTable });
   };
 
   return (
-    <form className="booking-form" style={{ display: 'grid', gap: '15px' }} onSubmit={handleSubmit} noValidate>
+    <form className="booking-form" style={{ display: 'grid', gap: '20px' }} onSubmit={handleSubmit}>
       <label htmlFor="res-date">Choose date</label>
       <input 
         type="date" 
@@ -45,7 +43,6 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         min={new Date().toISOString().split('T')[0]}
         required 
       />
-      {errors.date && <p style={{color: 'red', margin: 0}}>{errors.date}</p>}
 
       <label htmlFor="res-time">Choose time</label>
       <select 
@@ -59,18 +56,6 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           <option key={time} value={time}>{time}</option>
         ))}
       </select>
-      {errors.resTime && <p style={{color: 'red', margin: 0}}>{errors.resTime}</p>}
-
-      <label htmlFor="email">Email Address</label>
-      <input 
-        type="email" 
-        id="email" 
-        placeholder="you@example.com"
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        required 
-      />
-      {errors.email && <p style={{color: 'red', margin: 0}}>{errors.email}</p>}
 
       <label htmlFor="guests">Number of guests</label>
       <input 
@@ -83,7 +68,6 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         onChange={(e) => setGuests(e.target.value)} 
         required 
       />
-      {errors.guests && <p style={{color: 'red', margin: 0}}>{errors.guests}</p>}
 
       <label htmlFor="occasion">Occasion</label>
       <select 
@@ -95,13 +79,24 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         <option value="Anniversary">Anniversary</option>
       </select>
 
-      <input 
-        type="submit" 
-        className="hero-btn submit-btn" 
-        value={loading ? "Sending..." : "Make Your reservation"} 
-        aria-label={loading ? "Sending reservation" : "Make your reservation"}
-        disabled={loading}
-      />
+      <div className="table-selection-container">
+        <label>Select your Table</label>
+        <div className="restaurant-map">
+          {tables.map(t => (
+            <div 
+              key={t.id} 
+              className={`table-node ${t.type} ${selectedTable === t.id ? 'selected' : ''}`}
+              onClick={() => setSelectedTable(t.id)}
+            >
+              <span className="table-name">{t.id}</span>
+              <span className="table-capacity">👤 {t.capacity}</span>
+            </div>
+          ))}
+        </div>
+        {selectedTable && <p className="selected-table-text">Table {selectedTable} selected</p>}
+      </div>
+
+      <input type="submit" className="hero-btn submit-btn" value="Make Your reservation" aria-label="Make your reservation" />
     </form>
   );
 };
