@@ -17,8 +17,8 @@ const Login = () => {
   return (
     <main className="booking-section">
       <div className="booking-form">
-        <h1 style={{textAlign: 'center'}}>Login</h1>
-        <form onSubmit={handleLogin} style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
+        <h1 className="form-title">Login</h1>
+        <form onSubmit={handleLogin} className="login-form">
           <label htmlFor="email">Email</label>
           <input 
             type="email" 
@@ -41,7 +41,7 @@ const Login = () => {
           
           <button type="submit" className="hero-btn submit-btn">Login</button>
         </form>
-        <p style={{ marginTop: '20px', textAlign: 'center' }}>Don't have an account? <span style={{ color: 'var(--primary-green)', cursor: 'pointer', fontWeight: '700' }}>Sign up</span></p>
+        <p className="signup-prompt">Don't have an account? <button type="button">Sign up</button></p>
       </div>
     </main>
   );

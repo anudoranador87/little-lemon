@@ -21,6 +21,7 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
       date: '',
       resTime: '',
       guests: 1,
+      email: '',
       occasion: 'Birthday',
       table: ''
     },
@@ -38,6 +39,9 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         .required('Number of guests is required')
         .min(1, 'At least 1 guest is required')
         .max(10, 'Maximum 10 guests allowed'),
+      email: Yup.string()
+        .email('Enter a valid email address')
+        .required('Email is required'),
       table: Yup.string().required('Please select a table from the map')
     }),
     onSubmit: (values) => {
@@ -53,9 +57,11 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
     dispatch({ type: 'UPDATE_TIMES', payload: e.target.value });
   };
 
+  const isSubmitDisabled = !(formik.isValid && formik.dirty);
+
   return (
-    <form className="booking-form" style={{ display: 'grid', gap: '15px' }} onSubmit={formik.handleSubmit}>
-      <div className="form-group" style={{ display: 'flex', flexDirection: 'column' }}>
+    <form className="booking-form" onSubmit={formik.handleSubmit} noValidate>
+      <div className="form-group">
         <label htmlFor="res-date">Choose date</label>
         <input 
           type="date" 
@@ -65,11 +71,13 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           onChange={handleDateChange} 
           onBlur={formik.handleBlur}
           min={new Date().toISOString().split('T')[0]}
+          aria-invalid={formik.touched.date && Boolean(formik.errors.date)}
+          aria-describedby={formik.touched.date && formik.errors.date ? 'date-error' : undefined}
         />
-        {formik.touched.date && formik.errors.date ? <div className="error-text" style={{ color: '#d32f2f', fontSize: '14px', marginTop: '5px' }}>{formik.errors.date}</div> : null}
+        {formik.touched.date && formik.errors.date ? <div id="date-error" className="error-text">{formik.errors.date}</div> : null}
       </div>
 
-      <div className="form-group" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="form-group">
         <label htmlFor="res-time">Choose time</label>
         <select 
           id="res-time" 
@@ -77,16 +85,18 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           value={formik.values.resTime} 
           onChange={formik.handleChange} 
           onBlur={formik.handleBlur}
+          aria-invalid={formik.touched.resTime && Boolean(formik.errors.resTime)}
+          aria-describedby={formik.touched.resTime && formik.errors.resTime ? 'time-error' : undefined}
         >
           <option value="">Select a time</option>
           {availableTimes.map((time) => (
             <option key={time} value={time}>{time}</option>
           ))}
         </select>
-        {formik.touched.resTime && formik.errors.resTime ? <div className="error-text" style={{ color: '#d32f2f', fontSize: '14px', marginTop: '5px' }}>{formik.errors.resTime}</div> : null}
+        {formik.touched.resTime && formik.errors.resTime ? <div id="time-error" className="error-text">{formik.errors.resTime}</div> : null}
       </div>
 
-      <div className="form-group" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="form-group">
         <label htmlFor="guests">Number of guests</label>
         <input 
           type="number" 
@@ -98,11 +108,29 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
           value={formik.values.guests} 
           onChange={formik.handleChange} 
           onBlur={formik.handleBlur}
+          aria-invalid={formik.touched.guests && Boolean(formik.errors.guests)}
+          aria-describedby={formik.touched.guests && formik.errors.guests ? 'guests-error' : undefined}
         />
-        {formik.touched.guests && formik.errors.guests ? <div className="error-text" style={{ color: '#d32f2f', fontSize: '14px', marginTop: '5px' }}>{formik.errors.guests}</div> : null}
+        {formik.touched.guests && formik.errors.guests ? <div id="guests-error" className="error-text">{formik.errors.guests}</div> : null}
       </div>
 
-      <div className="form-group" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          aria-invalid={formik.touched.email && Boolean(formik.errors.email)}
+          aria-describedby={formik.touched.email && formik.errors.email ? 'email-error' : undefined}
+        />
+        {formik.touched.email && formik.errors.email ? <div id="email-error" className="error-text">{formik.errors.email}</div> : null}
+      </div>
+
+      <div className="form-group">
         <label htmlFor="occasion">Occasion</label>
         <select 
           id="occasion" 
@@ -116,34 +144,38 @@ const BookingForm = ({ availableTimes, dispatch, submitForm }) => {
         </select>
       </div>
 
-      <div className="table-selection-container">
-        <label>Select your Table</label>
-        <div className="restaurant-map">
+      <fieldset className="table-selection-container">
+        <legend>Select your Table</legend>
+        <div className="restaurant-map" role="group" aria-describedby="table-help">
           {tables.map(t => (
-            <div 
+            <button
+              type="button"
               key={t.id} 
               className={`table-node ${t.type} ${formik.values.table === t.id ? 'selected' : ''}`}
               onClick={() => formik.setFieldValue('table', t.id)}
+              aria-pressed={formik.values.table === t.id}
+              aria-label={`Table ${t.id}, ${t.capacity} seats`}
             >
               <span className="table-name">{t.id}</span>
-              <span className="table-capacity">👤 {t.capacity}</span>
-            </div>
+              <span className="table-capacity">{t.capacity} seats</span>
+            </button>
           ))}
         </div>
         {formik.touched.table && formik.errors.table ? (
-          <div className="error-text" style={{color: '#d32f2f', fontSize: '14px', marginTop: '10px', textAlign: 'center', fontWeight: 'bold'}}>{formik.errors.table}</div>
+          <div className="error-text table-error">{formik.errors.table}</div>
         ) : (
-          formik.values.table && <p className="selected-table-text">Table {formik.values.table} selected</p>
+          <p id="table-help" className="selected-table-text">
+            {formik.values.table ? `Table ${formik.values.table} selected` : 'Choose one available table.'}
+          </p>
         )}
-      </div>
+      </fieldset>
 
       <input 
         type="submit" 
         className="hero-btn submit-btn" 
         value="Make Your reservation" 
         aria-label="Make your reservation" 
-        disabled={!(formik.isValid && formik.dirty)}
-        style={{ opacity: !(formik.isValid && formik.dirty) ? 0.5 : 1, cursor: !(formik.isValid && formik.dirty) ? 'not-allowed' : 'pointer' }}
+        disabled={isSubmitDisabled}
       />
     </form>
   );

@@ -32,14 +32,14 @@ const OrderOnline = () => {
   };
 
   return (
-    <main style={{ padding: '60px 10%', position: 'relative', overflowX: 'hidden' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+    <main className="order-page">
+      <header className="order-header">
         <div>
           <h1>Order Online</h1>
           <p>Select your favorite dishes and order for pickup or delivery.</p>
         </div>
         <button className="cart-toggle-btn" onClick={() => setIsCartOpen(true)}>
-          🛒 Cart ({cart.length})
+          Cart ({cart.length})
         </button>
       </header>
       
@@ -54,8 +54,7 @@ const OrderOnline = () => {
               </div>
               <p>{item.description}</p>
               <button 
-                className="hero-btn" 
-                style={{marginTop: '20px', width: '100%'}}
+                className="hero-btn add-to-cart-btn"
                 onClick={() => addToCart(item)}
               >
                 Add to Cart
@@ -84,7 +83,7 @@ const OrderOnline = () => {
             >
               <div className="cart-header">
                 <h2>Your Cart</h2>
-                <button className="close-cart" onClick={() => setIsCartOpen(false)}>×</button>
+                <button className="close-cart" aria-label="Close cart" onClick={() => setIsCartOpen(false)}>×</button>
               </div>
 
               {cart.length === 0 ? (
@@ -105,8 +104,8 @@ const OrderOnline = () => {
                         <p>IVA (16%): <span>${iva.toFixed(2)}</span></p>
                         <p className="cart-total">Total: <span>${total.toFixed(2)}</span></p>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
-                      <button className="hero-btn" style={{width: '100%'}} onClick={() => setShowCheckoutForm(true)}>Proceed to Delivery</button>
+                    <div className="cart-actions">
+                      <button className="hero-btn full-width-btn" onClick={() => setShowCheckoutForm(true)}>Proceed to Delivery</button>
                       <button className="hero-btn clear-btn" onClick={clearCart}>Clear Cart</button>
                     </div>
                   </div>
@@ -114,10 +113,13 @@ const OrderOnline = () => {
               ) : (
                 <form onSubmit={handleCheckoutSubmit} className="delivery-form side-delivery">
                     <h3>Delivery Info</h3>
-                    <input type="text" placeholder="Full Name" required onChange={(e) => setDeliveryInfo({...deliveryInfo, name: e.target.value})} />
-                    <input type="text" placeholder="Address" required onChange={(e) => setDeliveryInfo({...deliveryInfo, address: e.target.value})} />
-                    <input type="tel" placeholder="Phone Number" required onChange={(e) => setDeliveryInfo({...deliveryInfo, phone: e.target.value})} />
-                    <button type="submit" className="hero-btn" style={{width: '100%'}}>Confirm Order</button>
+                    <label htmlFor="delivery-name">Full Name</label>
+                    <input id="delivery-name" type="text" placeholder="Full Name" required onChange={(e) => setDeliveryInfo({...deliveryInfo, name: e.target.value})} />
+                    <label htmlFor="delivery-address">Address</label>
+                    <input id="delivery-address" type="text" placeholder="Address" required onChange={(e) => setDeliveryInfo({...deliveryInfo, address: e.target.value})} />
+                    <label htmlFor="delivery-phone">Phone Number</label>
+                    <input id="delivery-phone" type="tel" placeholder="Phone Number" required onChange={(e) => setDeliveryInfo({...deliveryInfo, phone: e.target.value})} />
+                    <button type="submit" className="hero-btn full-width-btn">Confirm Order</button>
                     <button type="button" onClick={() => setShowCheckoutForm(false)} className="hero-btn cancel-btn">Back</button>
                 </form>
               )}

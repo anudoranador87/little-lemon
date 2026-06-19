@@ -22,7 +22,7 @@ function App() {
         <Navbar />
       </header>
       {/* Suspense is needed to show something while the lazy component loads */}
-      <Suspense fallback={<div style={{padding: '100px', textAlign: 'center'}}>Loading...</div>}>
+      <Suspense fallback={<div className="page-loading">Loading...</div>}>
         <Routes>
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
           <Route path="/about" element={<PageTransition><About /></PageTransition>} />

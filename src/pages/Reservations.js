@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BookingForm from '../components/BookingForm';
 
 // Simulation of API function
-const fetchAPI = (date) => {
-  // Simple deterministic function based on date
+export const fetchAPI = (date) => {
   const result = [];
   const day = new Date(date).getDate();
   for (let i = 17; i < 23; i++) {
@@ -26,6 +25,9 @@ export const initializeTimes = () => {
 export const updateTimes = (state, action) => {
   switch (action.type) {
     case 'UPDATE_TIMES':
+      if (!action.payload) {
+        return state;
+      }
       return fetchAPI(action.payload);
     default:
       return state;
@@ -46,8 +48,12 @@ const Reservations = () => {
 
   return (
     <main>
-      <section style={{ padding: '40px', maxWidth: '800px', margin: '0 auto' }}>
-        <h1>Reserve a Table</h1>
+      <section className="reservation-page" aria-labelledby="reservation-title">
+        <p className="section-kicker">Reservations</p>
+        <h1 id="reservation-title">Reserve a Table</h1>
+        <p className="reservation-intro">
+          Pick a date, time, party size, and table. Available times update when the date changes.
+        </p>
         <BookingForm 
           availableTimes={availableTimes} 
           dispatch={dispatch} 

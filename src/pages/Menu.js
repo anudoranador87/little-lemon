@@ -14,12 +14,12 @@ const Menu = () => {
   return (
     <main>
       <Highlights />
-      <section style={{ padding: '20px 10% 60px 10%' }}>
+      <section className="full-menu-section">
         <h2>Full Menu</h2>
-        <div className="specials-grid" style={{ marginTop: '20px' }}>
+        <div className="specials-grid full-menu-grid">
           {fullMenuItems.map((item, index) => (
             <article key={index} className="special-card">
-              <img src={item.image} alt={item.name} style={{ height: '200px', objectFit: 'cover' }} />
+              <img src={item.image} alt={item.name} />
               <div className="special-content">
                 <div className="special-header">
                   <h3>{item.name}</h3>
